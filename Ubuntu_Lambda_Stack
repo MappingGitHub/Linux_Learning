@@ -1,0 +1,47 @@
+Setting up a local web application fully deployed on a Ubuntu Lambda Stack
+
+https://www.virtualbox.org/ 
+Installing Ubuntu 20.04
+Type: Linux
+Version: Ubuntu(64 bi)
+2GB = 2048 B and 8GB RAM
+Create a virtual hard disk now
+Choose PAE ( physical address extension) : which let machine to have access 64 bit memory address space
+Choose VDI ( VirtualBox Disk Image)
+Choose “ Dynamically Allocated”
+Username / Password:  bill /password
+Choose : Open SSH server
+
+In Debian world ( Ubuntu, Kali,..), the name of apache server package is “Apache2”.
+
+Clear
+Sudu su 
+home/bill # apt install apache2
+home/bill # apt install mysql-server
+home/bill #  mysql_secure_installation
+password: password
+N, Y , N ( remove anonymous) , Y , Y, Y , Y 
+home/bill # apt install phpmyadmin php-mbstring
+
+Please Choose the webserver that should be automatically configured to run phpMyAdmin Web Server to reconfigure automatically: 
+[*] apache2 ( it goes apache2 subdirectories) 
+[ ] lighttpd 
+
+
+Configure database for PhpMyAdmin …? No
+home/bill # service  apache2  restart
+home/bill # mysql
+(set up username/password ) 
+Mysql  > USE mysql ; 
+Mysql >  CREATE USER ‘pma’@’localhost’ IDENTIFIED BY ‘password’;
+Mysql > GRANT ALL PRIVILEGES ON *.* To ‘pma’@’localhost’;
+Mysql>FLUSH PRIVILEGES;
+Exit;
+home/bill # mysql -u pma -p
+enter password: password
+quit
+home/bill # service sshd start 
+
+In Ubuntu windows: from main menu choose “Device” then choose “ Network”  and then “Host only adapter”
+home/bill # ip addr show
+open browser and enter the IP: 192.168.56.100
